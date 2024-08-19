@@ -24,14 +24,31 @@ func main() {
 		jsonString = string(bytes)
 	}
 
+	output := convertToJsonEncode(parseInput(jsonString))
+	fmt.Println(output)
+}
+
+func parseInput(input string) map[string]interface{} {
+	var dataSimple map[string]interface{}
+	err := json.Unmarshal([]byte(input), &dataSimple)
+	if err == nil {
+		return dataSimple
+	}
+
+	// if input is a JSON-encoded string, decode it first (e.g. piped after aws-cli)
+	var decodedJsonString string
+	err = json.Unmarshal([]byte(input), &decodedJsonString)
+	if err != nil {
+		log.Fatal("Error decoding JSON string: ", err)
+	}
+
 	var data map[string]interface{}
-	err := json.Unmarshal([]byte(jsonString), &data)
+	err = json.Unmarshal([]byte(decodedJsonString), &data)
 	if err != nil {
 		log.Fatal("Error parsing JSON: ", err)
 	}
 
-	output := convertToJsonEncode(data)
-	fmt.Println(output)
+	return data
 }
 
 func convertToJsonEncode(data map[string]interface{}) string {
