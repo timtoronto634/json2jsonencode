@@ -94,7 +94,7 @@ func convertArray(a []interface{}, indent int) string {
 	builder.WriteString("[\n")
 
 	for _, v := range a {
-		builder.WriteString(fmt.Sprintf("%s  %s\n", indentation, convertValue(v, indent+1)))
+		builder.WriteString(fmt.Sprintf("%s  %s,\n", indentation, convertValue(v, indent+1)))
 	}
 
 	builder.WriteString(indentation[:len(indentation)-2] + "]")
