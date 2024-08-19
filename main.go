@@ -3,16 +3,26 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"strings"
 )
 
 func main() {
-	if len(os.Args) < 2 {
-		log.Fatal("Please provide a JSON string as an argument.")
+	var jsonString string
+
+	// Check if input is provided as a command-line argument
+	if len(os.Args) > 1 {
+		jsonString = os.Args[1]
+	} else {
+		// If no argument is provided, read from stdin
+		bytes, err := io.ReadAll(os.Stdin)
+		if err != nil {
+			log.Fatal("Error reading from stdin: ", err)
+		}
+		jsonString = string(bytes)
 	}
-	jsonString := os.Args[1]
 
 	var data map[string]interface{}
 	err := json.Unmarshal([]byte(jsonString), &data)

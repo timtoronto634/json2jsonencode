@@ -1,0 +1,32 @@
+{
+  "widgets": [
+    {
+      "height": 1,
+      "width": 16,
+      "y": 0,
+      "x": 0,
+      "type": "text",
+      "properties": {
+        "markdown": "# api\n"
+      }
+    },
+    {
+      "height": 6,
+      "width": 6,
+      "y": 1,
+      "x": 0,
+      "type": "metric",
+      "properties": {
+        "annotations": {
+          "alarms": [
+            "arn:aws:cloudwatch:ap-northeast-1:511111:alarm:api-cpu-utilization-rate"
+          ]
+        },
+        "stacked": false,
+        "title": "api-cpu-utilization-rate",
+        "type": "chart",
+        "view": "timeSeries"
+      }
+    }
+  ]
+}
